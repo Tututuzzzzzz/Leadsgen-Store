@@ -8,7 +8,10 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata = {
   title: "Leadsgen Shop Demo",
-  description: "Frontend demo for products and cart"
+  description: "Frontend demo for products and cart",
+  icons: {
+    icon: "/icon.svg"
+  }
 };
 
 export default function RootLayout({ children }) {

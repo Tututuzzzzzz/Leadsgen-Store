@@ -66,18 +66,18 @@ public class DataInitializer {
             }
 
             DummyProductsResponse payload = objectMapper.readValue(response.body(), DummyProductsResponse.class);
-            if (payload.products == null || payload.products.isEmpty()) {
+            if (payload.products() == null || payload.products().isEmpty()) {
                 return List.of();
             }
 
             List<Product> mapped = new ArrayList<>();
-            for (DummyProduct item : payload.products) {
+            for (DummyProduct item : payload.products()) {
                 mapped.add(Product.builder()
-                    .name(item.title)
-                    .description(item.description)
-                    .image(item.thumbnail)
-                    .price(BigDecimal.valueOf(item.price))
-                    .stock(item.stock)
+                    .name(item.title())
+                    .description(item.description())
+                    .image(item.thumbnail())
+                    .price(BigDecimal.valueOf(item.price()))
+                    .stock(item.stock())
                     .build());
             }
             return mapped;
@@ -92,16 +92,8 @@ public class DataInitializer {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    private static class DummyProductsResponse {
-        public List<DummyProduct> products;
-    }
+    private record DummyProductsResponse(List<DummyProduct> products) {}
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    private static class DummyProduct {
-        public String title;
-        public String description;
-        public double price;
-        public String thumbnail;
-        public int stock;
-    }
+    private record DummyProduct(String title, String description, double price, String thumbnail, int stock) {}
 }
