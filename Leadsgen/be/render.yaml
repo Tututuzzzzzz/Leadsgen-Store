@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: leadsgen-api
+    runtime: java
+    plan: free
+    rootDir: .
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -Dserver.port=$PORT -jar target/*SNAPSHOT.jar
+    healthCheckPath: /api/products
+    autoDeploy: true
